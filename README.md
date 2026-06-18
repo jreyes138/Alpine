@@ -172,6 +172,50 @@ cp versions/setup-cosmic-alpine.v2026-06-17-r1.sh setup-cosmic-alpine.sh
   Alpine's existing setup (syslinux/grub/refind). If installing Alpine
   fresh, configure the bootloader first, then run the script.
 
+## Debugging high CPU on cosmic-osd / cosmic-settings-daemon
+
+If the COSMIC power/OSD/setting daemons are using constant high CPU:
+
+1. **From a user terminal** (not SSH as root), get the trace:
+   ```sh
+   RUST_LOG=trace cosmic-settings-daemon 2>&1 | head -100
+   ```
+   Look for repeated calls to the same DBus method — that's the loop.
+
+2. **Check which DBus interfaces are responding:**
+   ```sh
+   dbus-send --system --print-reply --dest=org.freedesktop.UPower \
+       /org/freedesktop/UPower org.freedesktop.UPower.EnumerateDevices
+   dbus-send --system --print-reply --dest=net.hadess.PowerProfiles \
+       /net/hadess/PowerProfiles org.freedesktop.DBus.Properties.GetAll \
+       string:net.hadess.PowerProfiles
+   ```
+   If either returns an error, the daemon is in a retry loop.
+
+3. **Make sure all power/audio services are started after install:**
+   ```sh
+   rc-service upower status
+   rc-service tuned status
+   rc-service tuned-ppd status
+   rc-service pipewire status
+   ```
+   All should say `started`.
+
+4. **Common cause on bare metal:** the first user session after the install
+   started before some of the new services were picked up. **Log out and log
+   back in** so cosmic-session restarts with all DBus services available.
+
+5. **Last resort:** kill the daemons and re-launch from a terminal to see
+   crash output:
+   ```sh
+   pkill -f cosmic-settings-daemon
+   pkill -f cosmic-osd
+   RUST_LOG=debug cosmic-settings-daemon 2>&1 | tee /tmp/cosmic-settings.log &
+   RUST_LOG=debug cosmic-osd 2>&1 | tee /tmp/cosmic-osd.log &
+   ```
+   Wait 30s, then `cat /tmp/cosmic-{settings,osd}.log | tail -200` and look
+   for repeating patterns.
+
 ## License
 
 [GPL-3.0-or-later](LICENSE). Copyright (C) 2026.

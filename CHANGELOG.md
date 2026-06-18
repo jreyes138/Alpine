@@ -154,3 +154,10 @@ Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
 - sha256: `b813aafb9b39`
 - lines: 1342
 
+## v2026-06-18-r14  (2026-06-18 11:37:47)
+
+- no script changes; only README updated with high-CPU debugging steps (RUST_LOG, DBus interface checks, service status) for the cosmic-osd/settings-daemon issue on AMD Ryzen 7 7840HS
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r14.sh` (unchanged from previous)
+- sha256: `b813aafb9b39`
+- lines: 1342
+
