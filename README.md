@@ -114,8 +114,6 @@ cp versions/setup-cosmic-alpine.v2026-06-17-r1.sh setup-cosmic-alpine.sh
 - Alpine 3.24.1 x86_64 (kernel 6.18-lts, OpenRC, eudev)
 - COSMIC 1.0.15 (community repo)
 - QEMU/KVM VMs (libvirt qxl-vga 64MB, virtio-net, ps2 kbd + USB tablet)
-  - 192.168.122.4 (alpinelinux3.23)
-  - 192.168.122.226 (alpinelinux3.23-2)
 - Intel Raptor Lake (Iris Xe) — `install_gpu_firmware` auto-detection
 
 ## Files written (on the target system)
