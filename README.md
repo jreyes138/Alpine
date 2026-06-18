@@ -204,14 +204,21 @@ If the COSMIC power/OSD/setting daemons are using constant high CPU:
 
 3. **Check that all services are running:**
    ```sh
+   # System services (OpenRC) - these should say "started"
    rc-service upower status
    rc-service tuned status
    rc-service tuned-ppd status
-   rc-service pipewire status
+   
+   # NOTE: rc-service pipewire status WILL SAY "does not exist" on Alpine.
+   # That's expected.  The pipewire package doesn't ship an OpenRC init
+   # script - pipewire runs as a USER session process, started by the
+   # /etc/xdg/autostart/pipewire.desktop file we drop during install.
+   # To check it's actually running, look at the per-user process list:
    pgrep -a pipewire
    pgrep -a wireplumber
    ```
-   All should say `started` / have a PID.
+   All of upower, tuned, tuned-ppd should say `started`.  pipewire and
+   wireplumber should show PIDs in `pgrep -a`.
 
 4. **Check DBus interfaces respond (no hangs):**
    ```sh
