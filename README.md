@@ -69,6 +69,7 @@ That's it. The script:
 -B, --no-bluetooth   skip bluez install
 -S, --no-audio       skip pipewire + wireplumber install (audio OSD will spin)
 -W, --no-power       skip upower + power-profiles install (battery/power applet broken)
+-Y, --no-systemd-shim skip the locale1/timedate1 DBus shim (COSMIC daemons may spin)
 -X, --no-xdg-user-dirs  skip creating Documents/Downloads/Music/etc.
 -M, --bare-metal     install linux-firmware for GPU drivers (real hardware)
 -A, --flatpak-apps IDS  space-separated flatpak app IDs (default: "com.brave.Browser com.tutanota.Tutanota")
@@ -87,6 +88,7 @@ That's it. The script:
 - Bluetooth: `bluez`, `bluez-openrc`
 - Audio: `pipewire`, `pipewire-pulse`, `pipewire-alsa`, `wireplumber` (autostart via XDG)
 - Power: `upower`, `tuned-ppd`, `tuned-ppd-openrc` (custom /etc/init.d/upower for upowerd)
+- Systemd shim: `py3-dbus-next` + tiny Python service providing `org.freedesktop.locale1` and `org.freedesktop.timedate1` stub DBus interfaces (so COSMIC daemons don't spin polling for systemd services)
 - XDG dirs: `xdg-user-dirs`
 - PAM runtime: `gnome-keyring-pam`, `kwallet-pam`, `pam-rundir` (community repo)
 - Seat manager: `elogind` (default) or `seatd` (fallback)

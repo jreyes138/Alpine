@@ -161,3 +161,10 @@ Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
 - sha256: `b813aafb9b39`
 - lines: 1342
 
+## v2026-06-18-r15  (2026-06-18 12:15:49)
+
+- add install_systemd_shim() - tiny Python DBus shim providing org.freedesktop.locale1 and org.freedesktop.timedate1 stub interfaces so COSMIC daemons dont spin polling for systemd services that dont exist on Alpine. New --no-systemd-shim (-Y) flag. Includes /etc/dbus-1/system.d/cosmic-systemd-shim.conf policy + dbus-send ReloadConfig + shim restart so the names are actually owned.
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r15.sh`
+- sha256: `f5c685dc9c4e`
+- lines: 1544
+
