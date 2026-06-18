@@ -126,3 +126,10 @@ Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
 - sha256: `430c6007edd0`
 - lines: 1109
 
+## v2026-06-18-r11  (2026-06-18 10:49:44)
+
+- auto-detect existing user: --user > $SUDO_USER > first non-root account from setup-alpine > "cosmic" (new). Avoids creating a second user when setup-alpine already made one.
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r11.sh`
+- sha256: `0392d3858f36`
+- lines: 1137
+

@@ -60,8 +60,8 @@ That's it. The script:
 ## Options
 
 ```
--u, --user NAME      non-root user to create or upgrade (default: $SUDO_USER or "cosmic")
--U, --no-user        skip user creation
+-u, --user NAME      non-root user to use (default: $SUDO_USER, or the first non-root account created by setup-alpine, or "cosmic")
+-U, --no-user        skip user creation/upgrade
 -b, --browser PKG    browser package (default: firefox; "" to skip)
 -n, --no-greeter     skip greetd/cosmic-greeter (headless)
 -d, --no-udev-fix    skip the udev seat-tag fix
