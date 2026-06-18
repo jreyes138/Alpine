@@ -176,13 +176,44 @@ cp versions/setup-cosmic-alpine.v2026-06-17-r1.sh setup-cosmic-alpine.sh
 
 If the COSMIC power/OSD/setting daemons are using constant high CPU:
 
-1. **From a user terminal** (not SSH as root), get the trace:
+1. **From a user terminal (as the logged-in user, NOT root)**, get the trace
+   while the daemons are actually running in cosmic-session:
    ```sh
-   RUST_LOG=trace cosmic-settings-daemon 2>&1 | head -100
+   # Get the running PIDs first
+   pgrep -af cosmic-settings-daemon
+   pgrep -af cosmic-osd
+   
+   # Attach strace to the running daemon (see what syscalls are blocking)
+   doas strace -p $(pgrep cosmic-settings-daemon) -c -e trace=all 2>&1 | head -20
+   doas strace -p $(pgrep cosmic-osd) -c -e trace=all 2>&1 | head -20
    ```
-   Look for repeated calls to the same DBus method — that's the loop.
+   Watch for **one syscall type dominating the count** — that's the loop.
 
-2. **Check which DBus interfaces are responding:**
+2. **If 6.2% is exactly what you see on both daemons:** that's likely
+   **normal** on bare metal. Each process has a tokio reactor thread
+   and a zbus connection thread; on a 16-thread CPU that's ~6.2% per
+   process just for the idle event loop. The fan noise is more likely
+   from `cosmic-comp` (the compositor) doing GPU work, not from these
+   daemons. Check:
+   ```sh
+   top -b -n 1 -o %CPU | head -15
+   ps -eo pid,user,pcpu,pmem,rss,comm --sort=-pcpu | head -10
+   ```
+   If `cosmic-comp` is at the top, the fan noise is GPU-driven and
+   unrelated to cosmic-osd / settings-daemon.
+
+3. **Check that all services are running:**
+   ```sh
+   rc-service upower status
+   rc-service tuned status
+   rc-service tuned-ppd status
+   rc-service pipewire status
+   pgrep -a pipewire
+   pgrep -a wireplumber
+   ```
+   All should say `started` / have a PID.
+
+4. **Check DBus interfaces respond (no hangs):**
    ```sh
    dbus-send --system --print-reply --dest=org.freedesktop.UPower \
        /org/freedesktop/UPower org.freedesktop.UPower.EnumerateDevices
@@ -190,31 +221,25 @@ If the COSMIC power/OSD/setting daemons are using constant high CPU:
        /net/hadess/PowerProfiles org.freedesktop.DBus.Properties.GetAll \
        string:net.hadess.PowerProfiles
    ```
-   If either returns an error, the daemon is in a retry loop.
+   If either hangs (5+ seconds), the daemon is in a retry loop.
 
-3. **Make sure all power/audio services are started after install:**
-   ```sh
-   rc-service upower status
-   rc-service tuned status
-   rc-service tuned-ppd status
-   rc-service pipewire status
-   ```
-   All should say `started`.
-
-4. **Common cause on bare metal:** the first user session after the install
+5. **Common cause on bare metal:** the first user session after the install
    started before some of the new services were picked up. **Log out and log
    back in** so cosmic-session restarts with all DBus services available.
 
-5. **Last resort:** kill the daemons and re-launch from a terminal to see
-   crash output:
+6. **If 100% CPU persists after the above:** kill the daemons and re-launch
+   with trace logging from a user terminal:
    ```sh
    pkill -f cosmic-settings-daemon
    pkill -f cosmic-osd
-   RUST_LOG=debug cosmic-settings-daemon 2>&1 | tee /tmp/cosmic-settings.log &
-   RUST_LOG=debug cosmic-osd 2>&1 | tee /tmp/cosmic-osd.log &
+   RUST_LOG=debug cosmic-settings-daemon > /tmp/cosmic-settings.log 2>&1 &
+   RUST_LOG=debug cosmic-osd > /tmp/cosmic-osd.log 2>&1 &
    ```
-   Wait 30s, then `cat /tmp/cosmic-{settings,osd}.log | tail -200` and look
-   for repeating patterns.
+   Wait 30s, then check what they were doing:
+   ```sh
+   grep -E "WARN|ERROR|warn|error" /tmp/cosmic-{settings,osd}.log | head -30
+   ```
+   Look for repeating DBus errors — that's the loop.
 
 ## License
 
