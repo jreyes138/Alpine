@@ -147,3 +147,10 @@ Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
 - sha256: `f6dbd51fea84`
 - lines: 1241
 
+## v2026-06-18-r14  (2026-06-18 11:29:26)
+
+- add install_power_stack() - installs upower + tuned-ppd, creates custom /etc/init.d/upower (Alpine does not ship one), starts tuned + tuned-ppd for power-profiles DBus. Fixes "Power mode: backend not found" in the COSMIC power applet. New --no-power (-W) flag.
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r14.sh`
+- sha256: `b813aafb9b39`
+- lines: 1342
+
