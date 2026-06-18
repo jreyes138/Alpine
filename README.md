@@ -67,6 +67,7 @@ That's it. The script:
 -d, --no-udev-fix    skip the udev seat-tag fix
 -F, --no-flatpak     skip flatpak + flathub + default apps
 -B, --no-bluetooth   skip bluez install
+-S, --no-audio       skip pipewire + wireplumber install (audio OSD will spin)
 -X, --no-xdg-user-dirs  skip creating Documents/Downloads/Music/etc.
 -M, --bare-metal     install linux-firmware for GPU drivers (real hardware)
 -A, --flatpak-apps IDS  space-separated flatpak app IDs (default: "com.brave.Browser com.tutanota.Tutanota")
@@ -83,6 +84,7 @@ That's it. The script:
 - COSMIC desktop: `cosmic-session`, `cosmic-comp`, `cosmic-greeter`, all `cosmic-*` apps
 - Display/login: `greetd`, `cosmic-greeter`, `xwayland`, `xdg-desktop-portal-cosmic`
 - Bluetooth: `bluez`, `bluez-openrc`
+- Audio: `pipewire`, `pipewire-pulse`, `pipewire-alsa`, `wireplumber` (autostart via XDG)
 - XDG dirs: `xdg-user-dirs`
 - PAM runtime: `gnome-keyring-pam`, `kwallet-pam`, `pam-rundir` (community repo)
 - Seat manager: `elogind` (default) or `seatd` (fallback)

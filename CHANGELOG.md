@@ -140,3 +140,10 @@ Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
 - sha256: `df6d2ced089e`
 - lines: 1161
 
+## v2026-06-18-r13  (2026-06-18 11:18:14)
+
+- add install_audio_stack() — installs pipewire + wireplumber + pipewire-pulse + pipewire-alsa, drops /etc/xdg/autostart/{pipewire,wireplumber}.desktop. Fixes cosmic-osd / cosmic-settings-daemon 100% CPU spin when pipewire is absent (pop-os/cosmic-osd #70, #162). New --no-audio (-S) flag.
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r13.sh`
+- sha256: `f6dbd51fea84`
+- lines: 1241
+
