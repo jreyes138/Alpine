@@ -105,3 +105,10 @@ Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
 - sha256: `fa2852a8b859`
 - lines: 1075
 
+## v2026-06-18-r8  (2026-06-18 10:37:18)
+
+- add GPL-3.0-or-later license: LICENSE file (full GPLv3 text), copyright header in script, SPDX identifier
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r8.sh`
+- sha256: `9a20a9b59af9`
+- lines: 1092
+
