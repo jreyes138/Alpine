@@ -1,0 +1,6 @@
+# Alpine Cosmic setup
+*.log
+*.swp
+.DS_Store
+__pycache__/
+*.pyc

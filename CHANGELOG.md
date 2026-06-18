@@ -1,0 +1,107 @@
+# Changelog
+
+All notable changes to `setup-cosmic-alpine.sh` are recorded here.
+Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
+`setup-cosmic-alpine.sh` is always the latest.
+
+## v2026-06-17-r1  (2026-06-17 21:42)
+
+- initial release
+- 538 lines, sha256: a15136010bd7
+- covers: preflight, community repo, eudev, dbus, polkit, seatd/elogind
+  auto-detect, user creation with desktop groups, full cosmic-* install
+  (greetd + cosmic-greeter), greetd config rewrite, lightdm cleanup,
+  udev seat-tag fix for /dev/input/event*, sanity checks, optional restart
+- verified on alpine-cosmic VM (192.168.122.220, Alpine 3.24.1): after
+  restart, cosmic-greeter came up and cosmic-session launched with all
+  14+ panel applets active for user joser
+- introduces `save-version.sh` for date-stamped snapshots
+## v2026-06-17-r2  (2026-06-17 21:53:56)
+
+- add flatpak + flathub + default apps (Brave, Tutanota); user.namespaces check
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-17-r2.sh`
+- sha256: `2fc18d45e53f`
+- lines: 642
+
+## v2026-06-17-r3  (2026-06-17 22:00:56)
+
+- fix flatpak app detection (Tutanota name has space, broke awk $2 match); tighten error handling around rc capture
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-17-r3.sh`
+- sha256: `23f2addc885a`
+- lines: 657
+
+## v2026-06-18-r1  (2026-06-18 08:42:57)
+
+- fix cosmic-greeter crashloop: pam-rundir + gnome-keyring-pam + kwallet-pam, patch /usr/lib/pam.d/{base-auth,base-session,cosmic-greeter}, add cosmic-greeter user to seat/video/input/audio. Was panic with RuntimeDirNotSet / PermissionDenied
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r1.sh`
+- sha256: `434cf35eefa3`
+- lines: 789
+
+## v2026-06-18-r1  (2026-06-18 09:12:02)
+
+- user-login fix: pam_rundir in /usr/lib/pam.d/cosmic-greeter (no - prefix), ensures /run/user/UID is created at session open. Without this, joser logs in without XDG_RUNTIME_DIR, cosmic-comp fails to acquire session, exits 1, cosmic-session retries and gives up with 137.
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r1.sh` (unchanged from previous)
+- sha256: `434cf35eefa3`
+- lines: 789
+
+## v2026-06-18-r2  (2026-06-18 09:24:57)
+
+- add bluez (bluetooth applet backend), elogind default (loginctl for power applet), flatpak appstream cache (cosmic-store browse), align_cosmic_greeter_initd (elogind dep).
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r2.sh`
+- sha256: `9535e900a442`
+- lines: 874
+
+## v2026-06-18-r3  (2026-06-18 09:29:04)
+
+- add setup_xdg_user_dirs() — installs xdg-user-dirs, runs xdg-user-dirs-update as the user, populates Documents/Downloads/Music/Pictures/Videos/Desktop/Templates/Public/Projects so cosmic-files shows them in the sidebar.
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r3.sh`
+- sha256: `8734a696fe9f`
+- lines: 933
+
+## v2026-06-18-r4  (2026-06-18 09:49:00)
+
+- extract fix_cosmic_greeter_user_groups into its own function and call it AFTER install_cosmic_packages (the cosmic-greeter user is created by the package post-install, not before; the previous ordering skipped the group fix on a fresh install).
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r4.sh`
+- sha256: `213c617496fd`
+- lines: 948
+
+## v2026-06-18-r5  (2026-06-18 09:56:00) — "bare metal" variant
+
+- add `--bare-metal` (`-M`) flag: installs `linux-firmware`,
+  `linux-firmware-amd`, `linux-firmware-intel` for real-hardware GPU drivers
+  (Intel iGPU, AMD APU, AMD dGPU).  Default is unchanged — works on QEMU VMs.
+- post-summary now shows "Bare metal: yes/no" line
+- header now states VM + bare-metal support explicitly
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r5.sh`
+- sha256: `3e5869a43928`
+- lines: 965
+
+## v2026-06-18-r6  (2026-06-18 10:11:00) — GPU auto-detection
+
+- new `install_gpu_firmware()` function: auto-detects GPU vendor via
+  `lspci -n` (and `/sys/class/drm/card*/device/vendor` as fallback) and
+  installs only the matching firmware package:
+    - `0x1002` (AMD)         -> `linux-firmware-amd`
+    - `0x8086` (Intel)       -> `linux-firmware-intel`
+    - `0x10de` (NVIDIA)      -> `linux-firmware-nvidia` + warn about kernel driver
+    - `0x1234` (QEMU)        -> skip (emulated GPU has no firmware)
+    - `0x1b36` (virtio-pci)  -> skip
+- QEMU/Virtio GPUs detected -> no firmware install
+- warns if `non-free` repo is not enabled (most firmware subpackages live there)
+- tested on local Intel Raptor Lake: detected `Intel`, selected `linux-firmware-intel`
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r6.sh`
+- sha256: `f12fb4fc566a`
+- lines: 1070
+
+## v2026-06-18-r6  (2026-06-18 10:13:36)
+
+- fix install_gpu_firmware: use lspci -n for hex vendor IDs (not lspci -mm
+  which gives text names); tested on local Intel Raptor Lake, detected correctly
+
+## v2026-06-18-r7  (2026-06-18 10:14:38)
+
+- install pciutils as bare-metal prerequisite so lspci is available for GPU detection
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r7.sh`
+- sha256: `fa2852a8b859`
+- lines: 1075
+
