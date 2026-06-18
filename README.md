@@ -62,7 +62,7 @@ That's it. The script:
 ```
 -u, --user NAME      non-root user to use (default: $SUDO_USER, or the first non-root account created by setup-alpine, or "cosmic")
 -U, --no-user        skip user creation/upgrade
--b, --browser PKG    browser package (default: firefox; "" to skip)
+-b, --browser PKG    optional browser package (default: none; "chromium" to install)
 -n, --no-greeter     skip greetd/cosmic-greeter (headless)
 -d, --no-udev-fix    skip the udev seat-tag fix
 -F, --no-flatpak     skip flatpak + flathub + default apps
@@ -76,6 +76,29 @@ That's it. The script:
     --password PASS  same, with a custom default password
 -h, --help           help
 ```
+
+## What gets installed
+
+**Native packages (Alpine):**
+- COSMIC desktop: `cosmic-session`, `cosmic-comp`, `cosmic-greeter`, all `cosmic-*` apps
+- Display/login: `greetd`, `cosmic-greeter`, `xwayland`, `xdg-desktop-portal-cosmic`
+- Bluetooth: `bluez`, `bluez-openrc`
+- XDG dirs: `xdg-user-dirs`
+- PAM runtime: `gnome-keyring-pam`, `kwallet-pam`, `pam-rundir` (community repo)
+- Seat manager: `elogind` (default) or `seatd` (fallback)
+- Terminal: `wezterm`
+- CLI utilities: `fastfetch`, `btop`, `bat`, `eza`, `micro`, `git`, `wget`, `curl`, `htop`, `nano`, `sudo`
+- Nerd fonts: `font-fira-code-nerd`, `font-jetbrains-mono-nerd`
+- Browser: NONE by default (use `--browser chromium` or install via flatpak)
+
+**Flatpak (system-wide):**
+- Remote: `flathub` (https://dl.flathub.org/repo/flathub.flatpakrepo)
+- Default apps: `com.brave.Browser`, `com.tutanota.Tutanota`
+- Custom apps: pass `--flatpak-apps "id1 id2 ..."` to override
+
+**GPU firmware** (only with `--bare-metal`):
+- Auto-detected via `lspci -n`: AMD/Intel/NVIDIA → matching `linux-firmware-*` package
+- Skipped on QEMU/virtio GPUs (emulated, no firmware needed)
 
 ## Files in this repo
 

@@ -133,3 +133,10 @@ Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
 - sha256: `0392d3858f36`
 - lines: 1137
 
+## v2026-06-18-r12  (2026-06-18 11:08:44)
+
+- remove firefox (locale issue), add wezterm (terminal), CLI tools (fastfetch, btop, bat, eza, micro, git, wget, curl, htop, nano, sudo), and nerd fonts (font-fira-code-nerd, font-jetbrains-mono-nerd). BROWSER_PKG default is now empty — use --browser or flatpak.
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r12.sh`
+- sha256: `df6d2ced089e`
+- lines: 1161
+
