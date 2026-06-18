@@ -72,6 +72,8 @@ That's it. The script:
 -A, --flatpak-apps IDS  space-separated flatpak app IDs (default: "com.brave.Browser com.tutanota.Tutanota")
 -r, --no-reboot      do not reboot at the end
 -y, --yes            assume yes (non-interactive)
+-P, --default-password  set a default password ("alpine") and force change on first login
+    --password PASS  same, with a custom default password
 -h, --help           help
 ```
 

@@ -119,3 +119,10 @@ Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
 - sha256: `27d828c9626a`
 - lines: 1092
 
+## v2026-06-18-r10  (2026-06-18 10:45:43)
+
+- add --default-password (-P) and --password PASS flags: chpasswd to set a default password, passwd -e to force change on first login. Lets --yes mode actually produce a usable greeter login.
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r10.sh`
+- sha256: `430c6007edd0`
+- lines: 1109
+
