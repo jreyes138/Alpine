@@ -250,6 +250,22 @@ If the COSMIC power/OSD/setting daemons are using constant high CPU:
    ```
    Look for repeating DBus errors — that's the loop.
 
+7. **If 6.2% is exactly what you see on both daemons** on a 16-thread CPU
+   like AMD Ryzen 7 7840HS: that = 1 thread locked at 100% per daemon.
+   Both daemons sharing the same number strongly suggests they're
+   blocked on the same resource.  Two remaining suspects:
+   - **pipewire not running** in the user session (autostart didn't fire).
+     Check: `pgrep -a pipewire`.  If empty, run: `/usr/bin/pipewire & /usr/bin/wireplumber &`.
+   - **varlink service from cosmic-settings-daemon** not reachable
+     (the audio subscription in cosmic-osd retries with 3s backoff if it
+     fails to connect; on Alpine varlink can be flaky without systemd).
+
+8. **Last-resort bypass flag** (--no-cosmic-daemons): the script can be
+   told NOT to autostart these daemons at session login.  See the
+   install notes; pass `--no-cosmic-daemons` to skip them.  This will
+   break the volume/brightness OSD popups and the settings-applied
+   behavior, but will eliminate the CPU use while you debug.
+
 ## License
 
 [GPL-3.0-or-later](LICENSE). Copyright (C) 2026.
