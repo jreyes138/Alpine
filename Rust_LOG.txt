@@ -1,0 +1,22 @@
+RUST_LOG=debug cosmic-settings-daemon 2>&1 | tee /tmp/cosmic-settings.log &
+/home/joser # RUST_LOG=debug cosmic-osd 2>&1 | tee /tmp/cosmic-osd.log &[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] write_command; command=Auth(Some(External), Some([48]))
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] write_commands; commands=[Auth(Some(External), Some([48]))] extra_bytes=None
+[2026-06-18T16:44:50Z INFO  tracing::span] read_command;
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] read_commands; n_commands=1
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] write_commands; commands=[NegotiateUnixFD, Begin] extra_bytes=Some([108, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 109, 0, 0, 0, 1, 1, 111, 0, 21, 0, 0, 0, 47, 111, 114, 103, 47, 102, 114, 101, 101, 100, 101, 115, 107, 116, 111, 112, 47, 68, 66, 117, 115, 0, 0, 0, 2, 1, 115, 0, 20, 0, 0, 0, 111, 114, 103, 46, 102, 114, 101, 101, 100, 101, 115, 107, 116, 111, 112, 46, 68, 66, 117, 115, 0, 0, 0, 0, 3, 1, 115, 0, 5, 0, 0, 0, 72, 101, 108, 108, 111, 0, 0, 0, 6, 1, 115, 0, 20, 0, 0, 0, 111, 114, 103, 46, 102, 114, 101, 101, 100, 101, 115, 107, 116, 111, 112, 46, 68, 66, 117, 115, 0, 0, 0, 0])
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] read_commands; n_commands=1
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] write_command; command=Auth(Some(External), Some([48]))
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] write_commands; commands=[Auth(Some(External), Some([48]))] extra_bytes=None
+[2026-06-18T16:44:50Z INFO  tracing::span] read_command;
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] read_commands; n_commands=1
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] write_commands; commands=[NegotiateUnixFD, Begin] extra_bytes=Some([108, 1, 0, 1, 0, 0, 0, 0, 2, 0, 0, 0, 109, 0, 0, 0, 1, 1, 111, 0, 21, 0, 0, 0, 47, 111, 114, 103, 47, 102, 114, 101, 101, 100, 101, 115, 107, 116, 111, 112, 47, 68, 66, 117, 115, 0, 0, 0, 2, 1, 115, 0, 20, 0, 0, 0, 111, 114, 103, 46, 102, 114, 101, 101, 100, 101, 115, 107, 116, 111, 112, 46, 68, 66, 117, 115, 0, 0, 0, 0, 3, 1, 115, 0, 5, 0, 0, 0, 72, 101, 108, 108, 111, 0, 0, 0, 6, 1, 115, 0, 20, 0, 0, 0, 111, 114, 103, 46, 102, 114, 101, 101, 100, 101, 115, 107, 116, 111, 112, 46, 68, 66, 117, 115, 0, 0, 0, 0])
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] read_commands; n_commands=1
+[2026-06-18T16:44:50Z ERROR cosmic_settings_daemon] Failed to watch xdg config dir: No path was found.
+[2026-06-18T16:44:50Z ERROR cosmic_settings_daemon] Failed to watch xdg state dir: No path was found.
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] write_command; command=Auth(Some(External), Some([48]))
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] write_commands; commands=[Auth(Some(External), Some([48]))] extra_bytes=None
+[2026-06-18T16:44:50Z INFO  tracing::span] read_command;
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] read_commands; n_commands=1
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] write_commands; commands=[NegotiateUnixFD, Begin] extra_bytes=Some([108, 1, 0, 1, 0, 0, 0, 0, 3, 0, 0, 0, 109, 0, 0, 0, 1, 1, 111, 0, 21, 0, 0, 0, 47, 111, 114, 103, 47, 102, 114, 101, 101, 100, 101, 115, 107, 116, 111, 112, 47, 68, 66, 117, 115, 0, 0, 0, 2, 1, 115, 0, 20, 0, 0, 0, 111, 114, 103, 46, 102, 114, 101, 101, 100, 101, 115, 107, 116, 111, 112, 46, 68, 66, 117, 115, 0, 0, 0, 0, 3, 1, 115, 0, 5, 0, 0, 0, 72, 101, 108, 108, 111, 0, 0, 0, 6, 1, 115, 0, 20, 0, 0, 0, 111, 114, 103, 46, 102, 114, 101, 101, 100, 101, 115, 107, 116, 111, 112, 46, 68, 66, 117, 115, 0, 0, 0, 0])
+[2026-06-18T16:44:50Z INFO  zbus::connection::handshake::common] read_commands; n_commands=1
+Error: InputOutput(Custom { kind: BrokenPipe, error: "failed to read from socket" })
