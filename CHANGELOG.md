@@ -112,3 +112,10 @@ Versions are date-stamped (`vYYYY-MM-DD-rN`); the live file
 - sha256: `9a20a9b59af9`
 - lines: 1092
 
+## v2026-06-18-r9  (2026-06-18 10:39:31)
+
+- remove "Lenier" from copyright header; keep year only (Copyright (C) 2026)
+- snapshot: `versions/setup-cosmic-alpine.v2026-06-18-r9.sh`
+- sha256: `27d828c9626a`
+- lines: 1092
+

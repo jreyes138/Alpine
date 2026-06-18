@@ -145,7 +145,7 @@ cp versions/setup-cosmic-alpine.v2026-06-17-r1.sh setup-cosmic-alpine.sh
 
 ## License
 
-[GPL-3.0-or-later](LICENSE). Copyright (C) 2026 Lenier.
+[GPL-3.0-or-later](LICENSE). Copyright (C) 2026.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
